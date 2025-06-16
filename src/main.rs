@@ -1,5 +1,6 @@
-use egui_macroquad::egui;
 // #![windows_subsystem = "windows"]
+
+use egui_macroquad::egui;
 use macroquad::prelude::*;
 
 mod app_settings;
@@ -54,7 +55,7 @@ async fn main() {
         set_camera(&camera);
 
         egui_macroquad::ui(|egui_ctx| {
-            egui::Window::new("egui ❤ macroquad")
+            egui::Window::new("Settings")
                 .collapsible(false)
                 .show(egui_ctx, |ui| {
                     ui.label("Test");

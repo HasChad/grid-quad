@@ -45,7 +45,7 @@ pub fn camera_fixer(camera: &mut Camera2D, zoomer: &mut f32) {
     }
 
     // move camera
-    if is_mouse_button_down(MouseButton::Right) {
+    if is_mouse_button_down(MouseButton::Middle) {
         let mouse_pos = mouse_delta_position();
 
         // you can change the add and sub assigments if you plan to use different camera movement
