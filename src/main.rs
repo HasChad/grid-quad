@@ -1,3 +1,4 @@
+use egui_macroquad::egui;
 // #![windows_subsystem = "windows"]
 use macroquad::prelude::*;
 
@@ -52,6 +53,14 @@ async fn main() {
         clear_background(BLACK);
         set_camera(&camera);
 
+        egui_macroquad::ui(|egui_ctx| {
+            egui::Window::new("egui ❤ macroquad")
+                .collapsible(false)
+                .show(egui_ctx, |ui| {
+                    ui.label("Test");
+                });
+        });
+
         if let Some(index) = focused_tile {
             let x = (index % GRID_W) as f32 * TILE_SIZE;
             let y = (index / GRID_W) as f32 * TILE_SIZE;
@@ -68,6 +77,8 @@ async fn main() {
             }
             draw_rectangle_outline(x, y, TILE_SIZE, TILE_SIZE, 2.0, BLUE);
         }
+
+        egui_macroquad::draw();
 
         next_frame().await
     }
