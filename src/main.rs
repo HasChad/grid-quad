@@ -26,10 +26,10 @@ async fn main() {
     loop {
         camera_fixer(&mut camera, &mut zoomer);
 
-        let world_mpos = Vec2::new(
-            (mouse_position().0 - screen_width() / 2.0) * ZOOM_DEFAULT / zoomer + camera.target.x,
-            (mouse_position().1 - screen_height() / 2.0) * ZOOM_DEFAULT / zoomer + camera.target.y,
-        );
+        let world_mpos = camera.screen_to_world(Vec2 {
+            x: mouse_position().0,
+            y: mouse_position().1,
+        });
 
         if world_mpos.x < TILE_SIZE * GRID_W as f32
             && world_mpos.x >= 0.0
@@ -76,21 +76,11 @@ async fn main() {
             if *tile == true {
                 draw_rectangle(x, y, TILE_SIZE, TILE_SIZE, YELLOW);
             }
-            draw_rectangle_outline(x, y, TILE_SIZE, TILE_SIZE, 2.0, BLUE);
+            draw_rectangle_lines(x, y, TILE_SIZE, TILE_SIZE, 2.0, BLUE);
         }
 
         egui_macroquad::draw();
 
         next_frame().await
     }
-}
-
-fn draw_rectangle_outline(x: f32, y: f32, w: f32, h: f32, thickness: f32, color: Color) {
-    let x2 = x + w;
-    let y2 = y + h;
-
-    draw_line(x, y, x2, y, thickness, color);
-    draw_line(x, y, x, y2, thickness, color);
-    draw_line(x2, y2, x, y2, thickness, color);
-    draw_line(x2, y2, x2, y, thickness, color);
 }
